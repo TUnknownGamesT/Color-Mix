@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
 
     bool AreColorsSimilar(Color c1, Color c2)
     {
-        Debug.Log(Vector4.Distance(new Vector4(c1.r, c1.g, c1.b, c1.a), new Vector4(c2.r, c2.g, c2.b, c2.a)));
+        //Debug.Log(Vector4.Distance(new Vector4(c1.r, c1.g, c1.b, c1.a), new Vector4(c2.r, c2.g, c2.b, c2.a)));
         return Vector4.Distance(new Vector4(c1.r, c1.g, c1.b, c1.a), new Vector4(c2.r, c2.g, c2.b, c2.a)) <= tolerance;
     }
 

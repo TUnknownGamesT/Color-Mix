@@ -22,7 +22,7 @@ public class TouchDetection : MonoBehaviour
                 {
                     if (hit.collider.CompareTag("Cannon"))
                     {
-                        hit.collider.GetComponent<CannonBallBehaviour>().Shoot();
+                        hit.collider.GetComponent<CannonBhaviour>().Shoot();
                     }
                 }
             }

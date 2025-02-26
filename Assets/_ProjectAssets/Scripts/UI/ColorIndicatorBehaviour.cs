@@ -26,9 +26,9 @@ public class ColorIndicatorBehaviour : MonoBehaviour, IDropHandler, IDragHandler
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.collider.CompareTag("CannonBall"))
+            if (hit.collider.CompareTag("Cannon"))
             {
-                hit.collider.GetComponent<CannonBallBehaviour>().ChangeColor(colorImage.color);
+                hit.collider.GetComponent<CannonBhaviour>().AddColor(colorImage.color);
                 gameObject.SetActive(false);
             }
         }

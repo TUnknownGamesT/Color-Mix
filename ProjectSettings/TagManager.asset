@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - ColorContainer
   - CannonBall
+  - CinemachineTarget
+  - ScreenCamera
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Camera
   - MainCameraOnly
   - CannonBall
-  - 
+  - Cannon
   - 
   - 
   - 
