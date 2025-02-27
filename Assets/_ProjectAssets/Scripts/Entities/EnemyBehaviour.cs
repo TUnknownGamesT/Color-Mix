@@ -7,13 +7,15 @@ public class EnemyBehaviour : MonoBehaviour
     public float speed;
 
     public float tolerance = 0.01f;
-
-    private MeshRenderer meshRenderer;
+    
+    [SerializeField]
+    private SkinnedMeshRenderer skinnedMeshRenderer;
+    private string colorProperty = "Color";
     private Rigidbody rb;
+    private Color _color = Color.black;
 
     void Awake()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -24,22 +26,43 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void ChangeColor(Color color)
     {
-        meshRenderer.material.color = color;
+        if (skinnedMeshRenderer == null)
+        {
+            Debug.LogError("SkinnedMeshRenderer is not assigned!");
+            return;
+        }
+
+        // Get all materials assigned to the SkinnedMeshRenderer
+        Material[] materials = skinnedMeshRenderer.materials;
+
+        for (int i = 0; i < materials.Length; i++)
+        {
+            if (materials[i].HasProperty(colorProperty)) // Check if the property exists
+            {
+                materials[i].SetColor(colorProperty, color);
+            }
+            else
+            {
+                Debug.LogWarning($"Material {materials[i].name} does not have property {colorProperty}");
+                materials[i].color = color;
+            }
+        }
+        _color = color;
     }
 
     void OnCollisionEnter(Collision collisionInfo)
     {
         if (collisionInfo.gameObject.CompareTag("CannonBall"))
         {
-            if (AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, meshRenderer.material.color))
+            if (AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, _color))
             {
-                Debug.Log(AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, meshRenderer.material.color));
-                Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color} = {meshRenderer.material.color}");
+                Debug.Log(AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, _color));
+                Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color} = {_color}");
                 Destroy(gameObject);
             }
             else
             {
-                Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color} != {meshRenderer.material.color}");
+                Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color} != {_color}");
             }
         }
     }

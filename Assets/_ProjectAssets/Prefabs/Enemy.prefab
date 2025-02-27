@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   tolerance: 0.2
+  skinnedMeshRenderer: {fileID: 4415072923593268694}
 --- !u!1001 &1089376347186084513
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -166,15 +167,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 680237756698464886, guid: 8b026356f1fe5454e87feb77a6480cfe, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 680237756698464886, guid: 8b026356f1fe5454e87feb77a6480cfe, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 680237756698464886, guid: 8b026356f1fe5454e87feb77a6480cfe, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 680237756698464886, guid: 8b026356f1fe5454e87feb77a6480cfe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -224,5 +225,10 @@ PrefabInstance:
 --- !u!4 &463464658006649047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 680237756698464886, guid: 8b026356f1fe5454e87feb77a6480cfe, type: 3}
+  m_PrefabInstance: {fileID: 1089376347186084513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4415072923593268694 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3628568049680246647, guid: 8b026356f1fe5454e87feb77a6480cfe, type: 3}
   m_PrefabInstance: {fileID: 1089376347186084513}
   m_PrefabAsset: {fileID: 0}

@@ -20,14 +20,14 @@ public class EnemySpawner : MonoBehaviour
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(spawnTime));
                 var enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
-                RandomizeColor(enemy.GetComponent<MeshRenderer>());
+                RandomizeColor(enemy.GetComponent<EnemyBehaviour>());
             }
         });
 
     }
 
 
-    private void RandomizeColor(MeshRenderer meshRenderer)
+    private void RandomizeColor(EnemyBehaviour enemy)
     {
         Color color = colors[UnityEngine.Random.Range(0, colors.Count)].color;
         Color color1 = colors[UnityEngine.Random.Range(0, colors.Count)].color;
@@ -37,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
             color1 = colors[UnityEngine.Random.Range(0, colors.Count)].color;
         }
 
-        meshRenderer.material.color = new Color((color.r + color1.r) / 2, (color.g + color1.g) / 2, (color.b + color1.b) / 2, 1);
+        enemy.ChangeColor(new Color((color.r + color1.r) / 2, (color.g + color1.g) / 2, (color.b + color1.b) / 2, 1));
 
 
     }
