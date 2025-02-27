@@ -1299,6 +1299,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 150938504433508341, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 150938504433508341, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 150938504433508341, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 150938504433508341, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 150938504433508341, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 150938504433508341, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 258324077265343542, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1346,6 +1370,30 @@ PrefabInstance:
     - target: {fileID: 3132527134300671844, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
       propertyPath: m_Name
       value: DefendLine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090312012776336898, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090312012776336898, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090312012776336898, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090312012776336898, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090312012776336898, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090312012776336898, guid: 2a2d60352ae3a234781968c109f5b2be, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
