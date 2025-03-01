@@ -1,36 +1,59 @@
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ColorIndicatorBehaviour : MonoBehaviour, IDropHandler, IDragHandler
+public class ColorIndicatorBehaviour : MonoBehaviour
 {
+    private RawImage _colorImage;
+    private bool _isDragging;
 
-    private RawImage colorImage;
-
-    private RectTransform rectTransform;
 
     void Awake()
     {
-        colorImage = GetComponent<RawImage>();
-        rectTransform = GetComponent<RectTransform>();
+        _colorImage = GetComponent<RawImage>();
     }
 
-    public void OnDrag(PointerEventData eventData)
+
+    void Update()
     {
-        rectTransform.anchoredPosition += eventData.delta;
+        if (Input.GetMouseButtonDown(0))
+        {
+            _isDragging = true;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            _isDragging = false;
+            OnDrop();
+        }
+
+        if (_isDragging)
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = 10f; // Set this to the distance from the camera to the object
+            transform.position = Camera.main.ScreenToWorldPoint(mousePosition);
+        }
+
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop()
     {
-        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+        Debug.Log("OnDrop");
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
             if (hit.collider.CompareTag("Cannon"))
             {
-                hit.collider.GetComponent<CannonBhaviour>().AddColor(colorImage.color);
-                gameObject.SetActive(false);
+                hit.collider.GetComponent<CannonBhaviour>().AddColor(_colorImage.color);
             }
         }
+
+        Color c = _colorImage.color;
+        c.a = 0f;
+        _colorImage.color = c;
     }
+
+
 }

@@ -15,10 +15,10 @@ public class UIGmaeplayManager : MonoBehaviour
         ColorContainerConmtroller.onColorContainerTouched -= OnColorContainerTouched;
     }
 
-    private void OnColorContainerTouched(Vector2 position, Color color)
+    private void OnColorContainerTouched(Color color)
     {
         colorGrabber.SetActive(true);
-        colorGrabber.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, 10));
+        colorGrabber.transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         colorGrabber.GetComponent<RawImage>().color = color;
     }
 }

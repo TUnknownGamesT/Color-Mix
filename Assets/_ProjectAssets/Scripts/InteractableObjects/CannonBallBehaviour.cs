@@ -15,7 +15,7 @@ public class CannonBallBehaviour : MonoBehaviour
 
     private int _index;
     private Rigidbody _rb;
-    
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -25,10 +25,10 @@ public class CannonBallBehaviour : MonoBehaviour
     {
         transform.position += transform.forward * Time.deltaTime * _currentSpeed;
     }
-    
-    public void Shoot( Color color)
+
+    public void Shoot(Color color)
     {
-        gameObject.GetComponent<MeshRenderer>().material.color = color;
+        gameObject.GetComponent<MeshRenderer>().materials[1].color = color;
         onCannonBallShoot?.Invoke();
         _currentSpeed = speed;
     }

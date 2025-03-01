@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class ColorContainerConmtroller : MonoBehaviour, IInteractable
 {
-    public static Action<Vector2, Color> onColorContainerTouched;
+    public static Action<Color> onColorContainerTouched;
 
     private MeshRenderer meshRenderer;
 
@@ -15,6 +15,6 @@ public class ColorContainerConmtroller : MonoBehaviour, IInteractable
 
     public void OnTouched(Vector2 position)
     {
-        onColorContainerTouched?.Invoke(position, meshRenderer.material.color);
+        onColorContainerTouched?.Invoke(meshRenderer.material.color);
     }
 }
