@@ -10,6 +10,8 @@ TagManager:
   - CannonBall
   - CinemachineTarget
   - ScreenCamera
+  - EnemyJumper
+  - Floor
   layers:
   - Default
   - TransparentFX
