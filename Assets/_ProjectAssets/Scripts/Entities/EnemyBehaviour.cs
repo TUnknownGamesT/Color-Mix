@@ -30,7 +30,7 @@ public class EnemyBehaviour : MonoBehaviour
     void Update()
     {
         if (_keepWalking)
-            rb.AddForce(Vector3.forward * -1 * speed * Time.deltaTime);
+            rb.linearVelocity = Vector3.back * speed;
     }
 
     public void ChangeColor(Color color)
@@ -63,15 +63,14 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collisionInfo.gameObject.CompareTag("CannonBall"))
         {
-            if (AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, _color))
+            if (AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.GetColor("_color"), _color))
             {
-                Debug.Log(AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, _color));
-                Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color} = {_color}");
+                Debug.Log(AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.GetColor("_color"), _color));
+                Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.GetColor("_color")} = {_color}");
                 Destroy(gameObject);
             }
             else if (collisionInfo.gameObject.CompareTag("Floor"))
             {
-
             }
             else
             {
