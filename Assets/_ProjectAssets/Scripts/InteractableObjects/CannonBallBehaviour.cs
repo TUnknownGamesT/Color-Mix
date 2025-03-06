@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class CannonBallBehaviour : MonoBehaviour
 {
@@ -10,16 +11,19 @@ public class CannonBallBehaviour : MonoBehaviour
 
     [Header("Attributes")]
     public float speed;
+    
+    [SerializeField]
+    private MeshRenderer _meshRenderer;
+    [SerializeField]
+    private ParticleSystem _nucleus;
+    [SerializeField]
+    private ParticleSystem _trail;
+    
+    
 
     private float _currentSpeed;
 
     private int _index;
-    private Rigidbody _rb;
-
-    private void Awake()
-    {
-        _rb = GetComponent<Rigidbody>();
-    }
 
     void Update()
     {
@@ -28,7 +32,9 @@ public class CannonBallBehaviour : MonoBehaviour
 
     public void Shoot(Color color)
     {
-        gameObject.GetComponent<MeshRenderer>().materials[1].color = color;
+        _meshRenderer.material.SetColor("_color", color);
+        _nucleus.startColor = color;
+        _trail.startColor = color;
         onCannonBallShoot?.Invoke();
         _currentSpeed = speed;
     }

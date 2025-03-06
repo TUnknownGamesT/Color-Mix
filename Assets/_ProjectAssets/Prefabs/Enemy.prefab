@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3480710894445218876}
-  speed: 100
+  speed: 10
   tolerance: 0.2
   xValues: {x: -8.7, y: 7.75}
   zValues: {x: -5.98, y: 4.56}
