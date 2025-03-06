@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    public ParticleSystem deathEffect;
     public Animator animator;
     public float speed;
     public float tolerance = 0.01f;
@@ -41,12 +42,11 @@ public class EnemyBehaviour : MonoBehaviour
             return;
         }
 
-        // Get all materials assigned to the SkinnedMeshRenderer
         Material[] materials = skinnedMeshRenderer.materials;
 
         for (int i = 0; i < materials.Length; i++)
         {
-            if (materials[i].HasProperty(colorProperty)) // Check if the property exists
+            if (materials[i].HasProperty(colorProperty))
             {
                 materials[i].SetColor(colorProperty, color);
             }
@@ -63,21 +63,26 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collisionInfo.gameObject.CompareTag("CannonBall"))
         {
-            if (AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, _color))
+            if (AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().materials[1].color, _color))
             {
                 Debug.Log(AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, _color));
                 Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color} = {_color}");
                 Destroy(gameObject);
-            }
-            else if (collisionInfo.gameObject.CompareTag("Floor"))
-            {
-
             }
             else
             {
                 Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color} != {_color}");
             }
         }
+
+        if (collisionInfo.gameObject.CompareTag("Floor"))
+        {
+            ParticleSystem particleSystem = Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
+            var mainModule = particleSystem.main;
+            mainModule.startColor = _color;
+            Destroy(gameObject);
+        }
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -96,7 +101,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Vector3 startPosition = transform.position;
         Vector3 direction = targetPosition - startPosition;
-        direction.y = 0; // Ignore vertical distance for horizontal velocity calculation
+        direction.y = 0;
 
         float verticalDistance = targetPosition.y - startPosition.y;
 
