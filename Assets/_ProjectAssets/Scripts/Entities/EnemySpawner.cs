@@ -7,49 +7,64 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static Action onAllEnemiesDied;
+
     public List<Material> colors;
     public GameObject enemyPrefab;
-
-    public LvlSettings[] settings;
 
     private int _enemiesNumber;
 
     private int _spawnedEnemies;
 
-    private int _lvlSettingsIndex;
-
     private float _tolerance = 0.01f;
 
     private float _spawnTime;
 
+    private int _enemyAlive;
+
+    private bool _finishToSpawn;
+
     private CancellationTokenSource _cts;
 
 
-    [ContextMenu("Next Level")]
-    public void NextLevel()
+    void OnEnable()
     {
-        if (_lvlSettingsIndex < settings.Length)
-        {
-            _cts = new CancellationTokenSource();
-            _spawnTime = settings[_lvlSettingsIndex].spawnTime;
-            _enemiesNumber = settings[_lvlSettingsIndex].enemiesNumber;
-            _lvlSettingsIndex++;
-            _spawnedEnemies = 0;
-            Spawn();
-        }
+        EnemyBehaviour.onEnemyDie += EnemyDied;
+    }
+
+    void OnDisable()
+    {
+        EnemyBehaviour.onEnemyDie -= EnemyDied;
+    }
+
+    [ContextMenu("Next Level")]
+    public void StartLvl(LvlSettings settings)
+    {
+
+        _cts = new CancellationTokenSource();
+        _spawnTime = settings.spawnTime;
+        _enemiesNumber = settings.enemiesNumber;
+        _spawnedEnemies = 0;
+        Spawn();
     }
 
     private void Spawn()
     {
+        _finishToSpawn = false;
+        _enemyAlive = 0;
         UniTask.Void(async token =>
                {
                    while (_spawnedEnemies < _enemiesNumber)
                    {
                        _spawnedEnemies++;
+                       _enemyAlive++;
                        var enemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
                        RandomizeColor(enemy.GetComponent<EnemyBehaviour>());
                        await UniTask.Delay(TimeSpan.FromSeconds(_spawnTime));
                    }
+
+                   _finishToSpawn = true;
+
                }, _cts.Token);
     }
 
@@ -73,6 +88,15 @@ public class EnemySpawner : MonoBehaviour
     bool AreColorsSimilar(Color c1, Color c2)
     {
         return Vector4.Distance(new Vector4(c1.r, c1.g, c1.b, c1.a), new Vector4(c2.r, c2.g, c2.b, c2.a)) <= _tolerance;
+    }
+
+    private void EnemyDied(int amount)
+    {
+        _enemyAlive--;
+        if (_enemyAlive == 0 && _finishToSpawn)
+        {
+            onAllEnemiesDied?.Invoke();
+        }
     }
 
 

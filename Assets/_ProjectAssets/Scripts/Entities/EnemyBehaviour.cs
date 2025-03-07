@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    public static Action<int> onEnemyDie;
+
     public ParticleSystem deathEffect;
     public Animator animator;
     public float speed;
@@ -17,7 +21,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField]
     private SkinnedMeshRenderer skinnedMeshRenderer;
-    private string colorProperty = "Color";
+    private string colorProperty = "_Color";
     private Rigidbody rb;
     private Color _color = Color.black;
 
@@ -63,11 +67,9 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collisionInfo.gameObject.CompareTag("CannonBall"))
         {
-            if (AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().materials[1].color, _color))
-
+            if (AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.color, _color))
             {
-                Debug.Log(AreColorsSimilar(collisionInfo.gameObject.GetComponent<MeshRenderer>().material.GetColor("_color"), _color));
-                Debug.Log($"{collisionInfo.gameObject.GetComponent<MeshRenderer>().material.GetColor("_color")} = {_color}");
+                onEnemyDie?.Invoke(1);
                 Destroy(gameObject);
             }
             else
@@ -81,6 +83,7 @@ public class EnemyBehaviour : MonoBehaviour
             ParticleSystem particleSystem = Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
             var mainModule = particleSystem.main;
             mainModule.startColor = _color;
+            onEnemyDie?.Invoke(0);
             Destroy(gameObject);
         }
 

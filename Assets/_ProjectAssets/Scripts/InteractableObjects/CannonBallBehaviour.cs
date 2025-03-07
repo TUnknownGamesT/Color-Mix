@@ -11,15 +11,15 @@ public class CannonBallBehaviour : MonoBehaviour
 
     [Header("Attributes")]
     public float speed;
-    
+
     [SerializeField]
     private MeshRenderer _meshRenderer;
     [SerializeField]
     private ParticleSystem _nucleus;
     [SerializeField]
     private ParticleSystem _trail;
-    
-    
+
+
 
     private float _currentSpeed;
 
@@ -32,9 +32,11 @@ public class CannonBallBehaviour : MonoBehaviour
 
     public void Shoot(Color color)
     {
-        _meshRenderer.material.SetColor("_color", color);
-        _nucleus.startColor = color;
-        _trail.startColor = color;
+        _meshRenderer.material.SetColor("_Color", color);
+        var nucleusMain = _nucleus.main;
+        nucleusMain.startColor = color;
+        var trailMain = _trail.main;
+        trailMain.startColor = color;
         onCannonBallShoot?.Invoke();
         _currentSpeed = speed;
     }

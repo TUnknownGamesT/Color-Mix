@@ -10,7 +10,7 @@ public class CannonBhaviour : MonoBehaviour
     public Transform shootPoint;
     private int _index;
 
-    public void AddColor(Color color) 
+    public void AddColor(Color color)
     {
         colorImages[_index].color = color;
         _index++;
@@ -19,12 +19,12 @@ public class CannonBhaviour : MonoBehaviour
             Color mockColor = new Color((colorImages[0].color.r + colorImages[1].color.r) / 2
                 , (colorImages[0].color.g + colorImages[1].color.g) / 2
                 , (colorImages[0].color.b + colorImages[1].color.b) / 2, 1);
-            
+
             Shoot(mockColor);
         }
 
     }
-    
+
     private void ClearColors()
     {
         foreach (var image in colorImages)
@@ -33,10 +33,9 @@ public class CannonBhaviour : MonoBehaviour
         }
         _index = 0;
     }
-    
+
     private void Shoot(Color color)
     {
-        Debug.Log("shoot");
         GameObject ball = Instantiate(cannonBallPrefab, shootPoint.position, shootPoint.rotation);
         ball.GetComponent<CannonBallBehaviour>().Shoot(color);
         ClearColors();
@@ -44,6 +43,6 @@ public class CannonBhaviour : MonoBehaviour
 
     public void Shoot()
     {
-        
+
     }
 }
